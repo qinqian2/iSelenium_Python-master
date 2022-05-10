@@ -5,6 +5,7 @@ import time
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
@@ -36,8 +37,8 @@ class ISelenium(unittest.TestCase):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('–no - sandbox')
         chrome_options.add_argument('–disable - dev - shm - usage')
-        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
-                                       options=chrome_options)
+        s = Service('/usr/local/share/chromedriver')
+        self.driver = webdriver.Chrome(service=s,options=chrome_options)
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
