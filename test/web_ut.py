@@ -38,8 +38,10 @@ class ISelenium(unittest.TestCase):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('–no - sandbox')
         chrome_options.add_argument('–disable - dev - shm - usage')
-        s = Service('/usr/local/share/chromedriver')
-        self.driver = webdriver.Chrome(service=s,
+        # s = Service('/usr/local/share/chromedriver')
+        # self.driver = webdriver.Chrome(service=s,
+        #                                options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
                                        options=chrome_options)
 
     @allure.story('Test key word 今日头条')
@@ -68,7 +70,7 @@ class ISelenium(unittest.TestCase):
         time.sleep(5)
         assert f'百度一下' in self.driver.title
 
-        elem = self.driver.find_element(By.ID,"kw")
+        elem = self.driver.find_element_by_name("wd")
         print("elem.text",elem.text)
         elem.send_keys(f'{search_keyword}{Keys.RETURN}')
         print(f'搜索关键词~{search_keyword}{Keys.RETURN}')
